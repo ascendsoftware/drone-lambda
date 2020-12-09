@@ -30,18 +30,13 @@ jobs:
             curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
             dep ensure
         fi
-
-    - name: Build
-      run: go build -v ./...
-
-    - name: Test
-      run: go test -v ./...
     
-    - name: Setup JFrog CLI
-      uses: jfrog/setup-jfrog-cli@v1.1.0
-      env:
-        JF_ARTIFACTORY_1: ${{ secrets.JF_ARTIFACTORY_SECRET_1 }} 
-
-    - name: 
+    - name: make binaries
+      run: make build_linux_amd64
+    
+    - name: zip up binary
+      run: zip deploy.zip releases/linux/amd64/drone-lambda
+        
+    - name: Push binary
       run: |
-        jfrog rt gp deployLambda v1.0.0 --server-id rt-server
+          curl -ugithub:${{secrets_JF_ARTIFACTORY_SECRET_1}} -T deploy.zip "https://ascipack.jfrog.io/artifactory/GenPack/drone-lambda/drone-lambda.zip"
