@@ -40,4 +40,4 @@ jobs:
         
     - name: Push binary
       run: |
-          curl -ugithub:${{secrets_JF_ARTIFACTORY_SECRET_1}} -T deploy.zip "https://ascipack.jfrog.io/artifactory/GenPack/drone-lambda/drone-lambda.zip"
+          curl -ugithub:${{secrets.artifactory_password}} -T deploy.zip "https://ascipack.jfrog.io/artifactory/GenPack/drone-lambda/drone-lambda.zip"
