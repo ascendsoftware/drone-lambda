@@ -36,7 +36,7 @@ jobs:
       run: make build_linux_amd64
     
     - name: zip up binary
-      run: zip deploy.zip releases/linux/amd64/drone-lambda
+      run: zip deploy.zip release/linux/amd64/drone-lambda
         
     - name: Push binary
       run: |
